@@ -1,16 +1,18 @@
 #!/bin/bash
 
 # Color codes
-YELLOW='\033[1;33m' # Bold Yellow
-BOLD='\033[1m'      # General Bold
-CYAN='\033[1;36m'   # Bold Cyan
-GREEN='\033[1;32m'  # Bold Green (নতুন যোগ করা হয়েছে)
-NC='\033[0m'        # No Color
+YELLOW='\033[1;33m'     # Bold Yellow
+BOLD='\033[1m'          # General Bold
+CYAN='\033[1;36m'       # Bold Cyan
+GREEN='\033[1;32m'      # Bold Green
+PINK='\033[38;5;198m'   # Deep Pink (Using 256-color code for specific shade)
+NC='\033[0m'            # No Color
 
 print_header() {
     clear # Clear screen to ensure header is always at the top
     echo -e "${YELLOW}${BOLD}=====================================================${NC}"
     echo -e "${YELLOW}${BOLD} # # # # # # 🟡 BENGAL AIRDROP 🟡 # # # # # #${NC}"
+    echo -e "${YELLOW}${BOLD} # # # # # #   MADE BY PRODIP   # # # # # #${NC}"
     echo -e "${YELLOW}${BOLD}=====================================================${NC}"
     echo -e "${CYAN}👉 Join TG Channel: https://t.me/BENGAL_AIR ${NC}"
     echo -e ""
@@ -53,14 +55,14 @@ while true; do
     echo -e "${YELLOW}${BOLD}╔═══════════════════════════════════════╗${NC}"
     echo -e "${YELLOW}${BOLD}║      🔵 0G STORAGE NODE MENU 🔵      ║${NC}"
     echo -e "${YELLOW}${BOLD}╠═══════════════════════════════════════╣${NC}"
-    echo -e "${YELLOW}${BOLD}║ ${CYAN}1️⃣ ${NC}${BOLD} Node Install (No Fast Sync)   ${YELLOW}${BOLD}║${NC}"
-    echo -e "${YELLOW}${BOLD}║ ${CYAN}2️⃣ ${NC}${BOLD} Apply Fast Sync Only          ${YELLOW}${BOLD}║${NC}"
-    echo -e "${YELLOW}${BOLD}║ ${CYAN}3️⃣ ${NC}${BOLD} STOP YOUR NODE                ${YELLOW}${BOLD}║${NC}"
-    echo -e "${YELLOW}${BOLD}║ ${CYAN}4️⃣ ${NC}${BOLD} RPC CHANGE                    ${YELLOW}${BOLD}║${NC}"
-    echo -e "${YELLOW}${BOLD}║ ${CYAN}5️⃣ ${NC}${BOLD} PVT KEY CHANGE                ${YELLOW}${BOLD}║${NC}"
-    echo -e "${YELLOW}${BOLD}║ ${CYAN}6️⃣ ${NC}${BOLD} START SERVICE                 ${YELLOW}${BOLD}║${NC}"
-    echo -e "${YELLOW}${BOLD}║ ${CYAN}7️⃣ ${NC}${BOLD} BLOCK CHECK                   ${YELLOW}${BOLD}║${NC}"
-    echo -e "${YELLOW}${BOLD}║ ${CYAN}0️⃣ ${NC}${BOLD} Exit                          ${YELLOW}${BOLD}║${NC}"
+    echo -e "${YELLOW}${BOLD}║ [${YELLOW}1${NC}${BOLD}] ${PINK}🚀 Node Install (No Fast Sync)   ${YELLOW}${BOLD}  ║${NC}"
+    echo -e "${YELLOW}${BOLD}║ [${YELLOW}2${NC}${BOLD}] ${PINK}⚡ Apply Fast Sync Only          ${YELLOW}${BOLD}   ║${NC}"
+    echo -e "${YELLOW}${BOLD}║ [${YELLOW}3${NC}${BOLD}] ${PINK}🛑 STOP YOUR NODE                ${YELLOW}${BOLD} ║${NC}"
+    echo -e "${YELLOW}${BOLD}║ [${YELLOW}4${NC}${BOLD}] ${PINK}🌐 RPC CHANGE                    ${YELLOW}${BOLD}  ║${NC}"
+    echo -e "${YELLOW}${BOLD}║ [${YELLOW}5${NC}${BOLD}] ${PINK}🔑 PVT KEY CHANGE                ${YELLOW}${BOLD} ║${NC}"
+    echo -e "${YELLOW}${BOLD}║ [${YELLOW}6${NC}${BOLD}] ${PINK}🟢 START SERVICE                 ${YELLOW}${BOLD} ║${NC}"
+    echo -e "${YELLOW}${BOLD}║ [${YELLOW}7${NC}${BOLD}] ${PINK}🔍 BLOCK CHECK                   ${YELLOW}${BOLD}  ║${NC}"
+    echo -e "${YELLOW}${BOLD}║ [${YELLOW}0${NC}${BOLD}] ${PINK}👋 Exit                          ${YELLOW}${BOLD}  ║${NC}"
     echo -e "${YELLOW}${BOLD}╚═══════════════════════════════════════╝${NC}"
     echo -e "" # Add a new line for better spacing
     read -p "Enter your choice [0-7]: " choice
