@@ -7,6 +7,7 @@ CYAN='\033[1;36m'       # Bold Cyan
 GREEN='\033[1;32m'      # Bold Green
 PINK='\033[38;5;198m'   # Deep Pink (Using 256-color code for specific shade)
 NC='\033[0m'            # No Color
+RED='\033[1;31m'        # Bold Red (নতুন যোগ করা হয়েছে)
 
 print_header() {
     clear # Clear screen to ensure header is always at the top
@@ -50,6 +51,48 @@ block_check() {
     echo -e "${GREEN}Block check complete.${NC}"
 }
 
+# New function for Storage Check
+storage_check() {
+    echo -e "${GREEN}========== STEP 8: STORAGE CHECK ==========${NC}"
+    echo -e "${CYAN}Checking overall disk usage...${NC}"
+
+    # Get disk usage for the root filesystem
+    DISK_INFO=$(df -h / | awk 'NR==2 {print $2, $3, $4, $5}')
+    TOTAL_SPACE=$(echo $DISK_INFO | awk '{print $1}')
+    USED_SPACE=$(echo $DISK_INFO | awk '{print $2}')
+    AVAIL_SPACE=$(echo $DISK_INFO | awk '{print $3}')
+    USE_PERCENT=$(echo $DISK_INFO | awk '{print $4}')
+
+    echo -e "${YELLOW}╔════════════════════════════════════════════════╗${NC}"
+    echo -e "${YELLOW}║            ${BOLD}VPS STORAGE OVERVIEW            ${NC}${YELLOW}║${NC}"
+    echo -e "${YELLOW}╠════════════════════════════════════════════════╣${NC}"
+    echo -e "${YELLOW}║ ${PINK}📊 Total Storage:   ${BOLD}${TOTAL_SPACE}${NC}${YELLOW}                         ║${NC}"
+    echo -e "${YELLOW}║ ${PINK}📈 Used Storage:    ${BOLD}${USED_SPACE} (${USE_PERCENT})${NC}${YELLOW}                ║${NC}"
+    echo -e "${YELLOW}║ ${PINK}📉 Available Storage: ${BOLD}${AVAIL_SPACE}${NC}${YELLOW}                       ║${NC}"
+    echo -e "${YELLOW}╚════════════════════════════════════════════════╝${NC}"
+    echo ""
+
+    echo -e "${CYAN}Checking 0G Storage Node data usage...${NC}"
+    NODE_DB_PATH="$HOME/0g-storage-node/run/db"
+    if [ -d "$NODE_DB_PATH" ]; then
+        NODE_DATA_SIZE=$(sudo du -sh "$NODE_DB_PATH" 2>/dev/null | awk '{print $1}')
+        if [ -z "$NODE_DATA_SIZE" ]; then
+            NODE_DATA_SIZE="N/A (Permission Denied or Empty)"
+            echo -e "${RED}Warning: Could not read 0G node data size. Run with sudo or check permissions.${NC}"
+        fi
+        echo -e "${YELLOW}╔════════════════════════════════════════════════╗${NC}"
+        echo -e "${YELLOW}║            ${BOLD}0G NODE DATA USAGE            ${NC}${YELLOW}║${NC}"
+        echo -e "${YELLOW}╠════════════════════════════════════════════════╣${NC}"
+        echo -e "${YELLOW}║ ${PINK}📦 0G Data Size:   ${BOLD}${NODE_DATA_SIZE}${NC}${YELLOW}                         ║${NC}"
+        echo -e "${YELLOW}╚════════════════════════════════════════════════╝${NC}"
+    else
+        echo -e "${RED}❌ 0G Storage Node database directory not found: ${NODE_DB_PATH}${NC}"
+        echo -e "${RED}Please ensure the node is installed correctly.${NC}"
+    fi
+    echo -e "${GREEN}Storage check complete.${NC}"
+}
+
+
 while true; do
     print_header # Call header function to clear and print
     echo -e "${YELLOW}${BOLD}╔═══════════════════════════════════════╗${NC}"
@@ -62,10 +105,11 @@ while true; do
     echo -e "${YELLOW}${BOLD}║ [${YELLOW}5${NC}${BOLD}] ${PINK}🔑 PVT KEY CHANGE                ${YELLOW}${BOLD} ║${NC}"
     echo -e "${YELLOW}${BOLD}║ [${YELLOW}6${NC}${BOLD}] ${PINK}🟢 START SERVICE                 ${YELLOW}${BOLD} ║${NC}"
     echo -e "${YELLOW}${BOLD}║ [${YELLOW}7${NC}${BOLD}] ${PINK}🔍 BLOCK CHECK                   ${YELLOW}${BOLD}  ║${NC}"
+    echo -e "${YELLOW}${BOLD}║ [${YELLOW}8${NC}${BOLD}] ${PINK}💾 STORAGE CHECK                 ${YELLOW}${BOLD}  ║${NC}" # নতুন অপশন
     echo -e "${YELLOW}${BOLD}║ [${YELLOW}0${NC}${BOLD}] ${PINK}👋 Exit                          ${YELLOW}${BOLD}  ║${NC}"
     echo -e "${YELLOW}${BOLD}╚═══════════════════════════════════════╝${NC}"
     echo -e "" # Add a new line for better spacing
-    read -p "Enter your choice [0-7]: " choice
+    read -p "Enter your choice [0-8]: " choice
 
     case $choice in
         1)
@@ -178,6 +222,7 @@ EOF
         5) key_change; read -p "Press Enter to continue..." ;;
         6) start_service; read -p "Press Enter to continue..." ;;
         7) block_check; read -p "Press Enter to continue..." ;;
+        8) storage_check; read -p "Press Enter to continue..." ;; # নতুন অপশন কল করা হয়েছে
         0)
             echo "Exiting... Bye!"
             exit 0
